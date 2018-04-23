@@ -10,6 +10,8 @@ export class Edge {
  */
 export class Vertex {
   // !!! IMPLEMENT ME
+  // value property
+  // edges property
 }
 
 /**
@@ -17,13 +19,13 @@ export class Vertex {
  */
 export class Graph {
   constructor() {
-    this.vertexes = [];
+    this.vertices = [];
   }
 
   /**
    * Create a random graph
    */
-  randomize(width, height, pxBox, probability=0.6) {
+  randomize(width, height, pxBox, probability = 0.6) {
     // Helper function to set up two-way edges
     function connectVerts(v0, v1) {
       v0.edges.push(new Edge(v1));
@@ -78,10 +80,10 @@ export class Graph {
       }
     }
 
-    // Finally, add everything in our grid to the vertexes in this Graph
+    // Finally, add everything in our grid to the vertices in this Graph
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
-        this.vertexes.push(grid[y][x]);
+        this.vertices.push(grid[y][x]);
       }
     }
   }
@@ -92,7 +94,7 @@ export class Graph {
   dump() {
     let s;
 
-    for (let v of this.vertexes) {
+    for (let v of this.vertices) {
       if (v.pos) {
         s = v.value + ' (' + v.pos.x + ',' + v.pos.y + '):';
       } else {
