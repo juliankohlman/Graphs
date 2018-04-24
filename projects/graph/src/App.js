@@ -33,6 +33,7 @@ class GraphView extends Component {
     
     // Clear it
     ctx.fillStyle = '#2953A0';
+    // ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight); // starts top left corner
 
     // !!! IMPLEMENT ME
@@ -64,6 +65,8 @@ class App extends Component {
 
     // !!! IMPLEMENT ME
     // use the graph randomize() method
+    this.state.graph.debugCreateTestData();
+    this.state.graph.dump();
   }
 
   render() {

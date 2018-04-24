@@ -3,6 +3,10 @@
  */
 export class Edge {
   // !!! IMPLEMENT ME
+  constructor(weight = 1, destination) {
+    this.weight = weight;
+    this.destination = destination;
+  }
 }
 
 /**
@@ -12,6 +16,11 @@ export class Vertex {
   // !!! IMPLEMENT ME
   // value property
   // edges property
+  constructor(value = 'default vertex label', pos = { x: 50, y: 50 }) {
+    this.value = value;
+    this.edges = [];
+    this.pos = pos;
+  }
 }
 
 /**
@@ -20,6 +29,17 @@ export class Vertex {
 export class Graph {
   constructor() {
     this.vertices = [];
+  }
+
+  debugCreateTestData() {
+    let testVertex1 = new Vertex('test vertex1', { x: 125, y: 125 });
+    let testVertex2 = new Vertex('test vertex2', { x: 325, y: 325 });
+    let edge1 = new Edge(testVertex2);
+    testVertex1.edges.push(edge1);
+    let edge2 = new Edge(testVertex1);
+    testVertex2.edges.push(edge2);
+
+    this.vertices.push(testVertex1, testVertex2);
   }
 
   /**
@@ -41,7 +61,8 @@ export class Graph {
       for (let x = 0; x < width; x++) {
         let v = new Vertex();
         //v.value = 'v' + x + ',' + y;
-        v.value = 'v' + count++;
+        // TODO convert to template literal
+        v.value = `${v} + ${count++}`;
         row.push(v);
       }
       grid.push(row);
@@ -53,14 +74,14 @@ export class Graph {
         // Connect down
         if (y < height - 1) {
           if (Math.random() < probability) {
-            connectVerts(grid[y][x], grid[y+1][x]);
+            connectVerts(grid[y][x], grid[y + 1][x]);
           }
         }
 
         // Connect right
         if (x < width - 1) {
           if (Math.random() < probability) {
-            connectVerts(grid[y][x], grid[y][x+1]);
+            connectVerts(grid[y][x], grid[y][x + 1]);
           }
         }
       }
@@ -74,8 +95,8 @@ export class Graph {
     for (let y = 0; y < height; y++) {
       for (let x = 0; x < width; x++) {
         grid[y][x].pos = {
-          'x': (x * pxBox + boxInnerOffset + Math.random() * boxInner) | 0,
-          'y': (y * pxBox + boxInnerOffset + Math.random() * boxInner) | 0
+          x: (x * pxBox + boxInnerOffset + Math.random() * boxInner) | 0,
+          y: (y * pxBox + boxInnerOffset + Math.random() * boxInner) | 0
         };
       }
     }
@@ -102,7 +123,8 @@ export class Graph {
       }
 
       for (let e of v.edges) {
-        s += ` ${e.destination.value}`;
+        // s += ` ${e.destination.value}`;
+        `${s} += ${e.value}`;
       }
       console.log(s);
     }
@@ -122,3 +144,4 @@ export class Graph {
     // !!! IMPLEMENT ME
   }
 }
+
