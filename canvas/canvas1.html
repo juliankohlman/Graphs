@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <canvas id="exampleCanvas" width="800" height="600">
+  </canvas>
+  <script>
+   let canvas = document.getElementById('exampleCanvas'), 
+   ctx = canvas.getContext('2d');
+
+    // var grd = ctx.createLinearGradient(20, 40, 200, 70);
+    // grd.addColorStop(0, "#232D36");
+    // grd.addColorStop(1, "#4A535C");
+
+
+   ctx.fillStyle = '#232D36';
+  // ctx.fillStyle = grd;
+   ctx.fillRect(0, 0, exampleCanvas.width, exampleCanvas.height);
+
+  //  ctx.beginPath(); ctx.moveTo(75, 50); ctx.lineTo(100, 75); ctx.lineTo(100, 25);  ctx.stroke();
+
+   ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = '#FFCC66'; ctx.arc(700, 175, 50, 0, Math.PI * 3, true); ctx.stroke();
+   ctx.beginPath(); ctx.lineWidth = 4; ctx.strokeStyle = '#66CCCC'; ctx.arc(700, 475, 50, 0, Math.PI * 2, true); ctx.stroke();
+   ctx.beginPath(); ctx.lineWidth = 3; ctx.strokeStyle = '#F2777A'; ctx.arc(200, 275, 60, 0, Math.PI * 2, true); ctx.stroke();
+   ctx.beginPath(); ctx.lineWidth = 5; ctx.strokeStyle = '#F99157'; ctx.arc(100, 555, 20, 0, Math.PI * 2, true); ctx.stroke();
+
+   ctx.beginPath(); ctx.lineWidth = 1; ctx.strokeStyle = '#66CCCC'; ctx.arc(300, 375, 50, 0, Math.PI * 2, true); ctx.stroke();
+
+   ctx.beginPath(); ctx.lineWidth = 1; ctx.strokeStyle = '#F2777A'; ctx.moveTo(500, 550); ctx.quadraticCurveTo(75, 25, 15, 62.5); ctx.stroke();
+   ctx.beginPath(); ctx.lineWidth = 5; ctx.strokeStyle = '#99CC99'; ctx.moveTo(500, 550); ctx.quadraticCurveTo(35, 95, 45, 162.5); ctx.stroke();
+
+   ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = '#F99157'; ctx.moveTo(50, 100); ctx.lineTo(250, 150); ctx.quadraticCurveTo(35, 95, 45, 162.5); ctx.stroke();
+   ctx.beginPath(); ctx.lineWidth = 1; ctx.strokeStyle = '#66CCCC'; ctx.moveTo(150, 200); ctx.lineTo(450, 250); ctx.stroke();
+
+   ctx.beginPath(); ctx.lineWidth = 4; ctx.strokeStyle = '#FFCC66'; ctx.moveTo(500, 500); ctx.lineTo(50, 350); ctx.stroke();
+   ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = '#F99157';ctx.moveTo(450, 200); ctx.lineTo(450, 250); ctx.stroke();
+
+   ctx.beginPath(); ctx.lineWidth = 2; ctx.strokeStyle = '#66CCCC'; ctx.moveTo(400, 60); ctx.quadraticCurveTo(150, 20, 30, 125); ctx.stroke();
+   ctx.beginPath(); ctx.lineWidth = 5; ctx.strokeStyle = '#99CC99'; ctx.moveTo(300, 50); ctx.quadraticCurveTo(325, 95, 45, 84.26); ctx.stroke();
+
+    ctx.beginPath(); ctx.lineWidth = 1; ctx.strokeStyle = '#F99157'; ctx.moveTo(700, 100); ctx.lineTo(250, 150); ctx.stroke();
+    ctx.beginPath(); ctx.lineWidth = 3; ctx.strokeStyle = '#66CCCC'; ctx.moveTo(650, 200); ctx.lineTo(450, 250); ctx.stroke();
+
+    ctx.beginPath(); ctx.lineWidth = 4; ctx.strokeStyle = '#FFCC66'; ctx.moveTo(700, 500); ctx.lineTo(350, 150); ctx.stroke();
+    ctx.beginPath(); ctx.lineWidth = 6; ctx.strokeStyle = '#F2777A'; ctx.moveTo(670, 200); ctx.lineTo(40, 250); ctx.stroke();
+  // for (var i = 0; i < 6; i++) {
+  //     for (var j = 0; j < 6; j++) {
+  //       ctx.strokeStyle = 'rgb(0,' + Math.floor(255 - 12.5 * i) + ',' +
+  //         Math.floor(255 - 32.5 * j) + ')';
+  //       ctx.beginPath();
+  //       ctx.lineWidth = 2;
+  //       ctx.arc(312.5 + j * 25, 12.5 + i * 25, 10, 0, Math.PI * 2, true);
+  //       ctx.stroke();
+  //     }
+  //   }
+  </script>
+</body>
+</html>
+  
