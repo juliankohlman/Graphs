@@ -30,19 +30,36 @@ class GraphView extends Component {
   updateCanvas() {
     let canvas = this.refs.canvas;
     let ctx = canvas.getContext('2d');
-    
-    // Clear it
-    ctx.fillStyle = '#2953A0';
-    // ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight); // starts top left corner
 
+    // Clear it
+    // ctx.fillStyle = '#2953A0';
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight); // starts top left corner
+    // console.log("in updateCanvas()", this.props.graph.vertices);
+    const vertexes = this.props.graph.vertices;
+    const radius = 20;
+    for (const vertex of vertexes) {
+      ctx.beginPath();
+      ctx.arc(vertex.pos.x, vertex.pos.y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillText(vertex.value, vertex.pos.x, vertex.pos.y);
+      ctx.stroke();
+      // connect edges to vertices
+      // for (const vertex of vertexes) {
+      //   cxt.beginPath();
+      //   ctx.moveTo(vertex.pos.x, vertex.pos.y);
+      //   ctx.lineTo(edge.destination.pos.x / 2, edge.destination.pos.y);
+      //   ctx.stroke();
+      // }
     // !!! IMPLEMENT ME
     // compute connected components
     // draw edges
     // draw verts
     // draw vert values (labels)
+    }
   }
-  
   /**
    * Render
    */
