@@ -5,8 +5,8 @@ import { Graph, Vertex, Edge } from './graph';
 import './App.css';
 
 // !!! IMPLEMENT ME
-const canvasWidth = 640;
-const canvasHeight = 480;
+const canvasWidth = 750;
+const canvasHeight = 600;
 
 /**
  * GraphView
@@ -43,6 +43,17 @@ class GraphView extends Component {
     const vertexes = this.props.graph.vertexes;
     const radius = 20;
 
+    // edge(s) TODO optimize these 2 loops
+    for (const v of vertexes) {
+      for (const edge of v.edges) {
+        // console.log(edge.destination.pos.x);
+        ctx.beginPath();
+        ctx.moveTo(v.pos.x, v.pos.y);
+        ctx.lineTo(edge.destination.pos.x, edge.destination.pos.y);
+        ctx.stroke();
+      }
+    }
+
     for (const vert of vertexes) {
       // vertex(s)
       ctx.beginPath();
@@ -52,19 +63,11 @@ class GraphView extends Component {
       ctx.stroke();
 
       ctx.fillStyle = 'black';
-      ctx.font = '10px Arial';
+      ctx.font = '12px Titillium Web';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(vert.value, vert.pos.x, vert.pos.y);
       ctx.stroke();
-      // edge(s)
-      for (const edge of vert.edges) {
-        // console.log(edge.destination.pos.x);
-        ctx.beginPath();
-        ctx.moveTo(vert.pos.x, vert.pos.y);
-        ctx.lineTo(edge.destination.pos.x, edge.destination.pos.y);
-        ctx.stroke();
-      }
     }
   }
   /**
@@ -88,9 +91,11 @@ class App extends Component {
     };
     // !!! IMPLEMENT ME
     // use the graph randomize() method
-    this.state.graph.debugCreateTestData();
+    this.state.graph.randomize(3, 2, 150, 0.6);
+
+    // this.state.graph.debugCreateTestData();
     // console.log('this object', this);
-    this.state.graph.dump();
+    // this.state.graph.dump();
   }
 
   render() {

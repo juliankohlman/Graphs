@@ -34,8 +34,8 @@ export class Graph {
     const testVertex3 = new Vertex('V-3', { x: 155, y: 275 });
 
     const edge1 = new Edge(testVertex2);
-    const edge2 = new Edge(testVertex1);
-    const edge3 = new Edge(testVertex2);
+    const edge2 = new Edge(testVertex3);
+    const edge3 = new Edge(testVertex1);
 
     testVertex1.edges.push(edge1);
     testVertex2.edges.push(edge2);
