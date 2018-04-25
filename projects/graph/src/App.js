@@ -1,3 +1,5 @@
+/* eslint no-restricted-syntax: off */
+/* eslint react/no-multi-comp: off */
 import React, { Component } from 'react';
 import { Graph } from './graph';
 import './App.css';
@@ -29,36 +31,48 @@ class GraphView extends Component {
    */
   updateCanvas() {
     let canvas = this.refs.canvas;
-    let ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
 
     // Clear it
-    // ctx.fillStyle = '#2953A0';
-    ctx.fillStyle = 'white';
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight); // starts top left corner
-    // console.log("in updateCanvas()", this.props.graph.vertices);
+    ctx.fillStyle = '#2953A0';
+    // ctx.fillStyle = 'white';
+    // starts top left corner
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight); 
+    console.log("in updateCanvas()", this.props.graph.vertices);
+
+    // // !!! IMPLEMENT ME
+    // // compute connected components
+    // // draw edges
+    // // draw verts
+    // // draw vert values (labels)
+    // }
+
     const vertexes = this.props.graph.vertices;
     const radius = 20;
-    for (const vertex of vertexes) {
+    for (const v of vertexes) {
       ctx.beginPath();
-      ctx.arc(vertex.pos.x, vertex.pos.y, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = "black";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
-      ctx.fillText(vertex.value, vertex.pos.x, vertex.pos.y);
+      ctx.arc(v.pos.x, v.pos.y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = 'white';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(v.value, v.pos.x, v.pos.y);
       ctx.stroke();
-      // connect edges to vertices
-      // for (const vertex of vertexes) {
-      //   cxt.beginPath();
-      //   ctx.moveTo(vertex.pos.x, vertex.pos.y);
-      //   ctx.lineTo(edge.destination.pos.x / 2, edge.destination.pos.y);
-      //   ctx.stroke();
-      // }
-    // !!! IMPLEMENT ME
-    // compute connected components
-    // draw edges
-    // draw verts
-    // draw vert values (labels)
     }
+    // for (const vertex of vertexes) {
+    //   ctx.beginPath();
+    //   ctx.arc(vertex.pos.x, vertex.pos.y, radius, 0, 2 * Math.PI);
+    //   ctx.fillStyle = 'black';
+    //   ctx.textAlign = 'center';
+    //   ctx.textBaseline = 'middle';
+    //   ctx.fillText(vertex.value, vertex.pos.x, vertex.pos.y);
+    //   ctx.stroke();
+    //   // connect edges to vertices
+    //   for (const v of vertexes) {
+    //     cxt.beginPath();
+    //     ctx.moveTo(v.pos.x, v.pos.y);
+    //     ctx.lineTo(v.edge.destination.pos.x / 2, v.edge.destination.pos.y);
+    //     ctx.stroke();
+    //   }
   }
   /**
    * Render
@@ -77,12 +91,12 @@ class App extends Component {
     super(props);
 
     this.state = {
-      graph: new Graph()
+      graph: new Graph(),
     };
-
     // !!! IMPLEMENT ME
     // use the graph randomize() method
     this.state.graph.debugCreateTestData();
+    // console.log('this object', this);
     this.state.graph.dump();
   }
 

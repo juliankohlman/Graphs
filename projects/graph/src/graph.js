@@ -1,3 +1,4 @@
+/* eslint no-restricted-syntax: off */
 /**
  * Edge
  */
@@ -32,11 +33,11 @@ export class Graph {
   }
 
   debugCreateTestData() {
-    let testVertex1 = new Vertex('test vertex1', { x: 125, y: 125 });
-    let testVertex2 = new Vertex('test vertex2', { x: 325, y: 325 });
-    let edge1 = new Edge(testVertex2);
+    const testVertex1 = new Vertex('V-1', { x: 125, y: 125 });
+    const testVertex2 = new Vertex('V-2', { x: 325, y: 325 });
+    const edge1 = new Edge(testVertex2);
     testVertex1.edges.push(edge1);
-    let edge2 = new Edge(testVertex1);
+    const edge2 = new Edge(testVertex1);
     testVertex2.edges.push(edge2);
 
     this.vertices.push(testVertex1, testVertex2);
@@ -55,22 +56,21 @@ export class Graph {
     let count = 0;
 
     // Build a grid of verts
-    let grid = [];
-    for (let y = 0; y < height; y++) {
-      let row = [];
-      for (let x = 0; x < width; x++) {
-        let v = new Vertex();
-        //v.value = 'v' + x + ',' + y;
-        // TODO convert to template literal
-        v.value = `${v} + ${count++}`;
+    const grid = [];
+    for (let y = 0; y < height; y += 1) {
+      const row = [];
+      for (let x = 0; x < width; x += 1) {
+        const v = new Vertex();
+        // v.value = 'v' + x + ',' + y;
+        v.value = `${v} + ${count += 1}`;
         row.push(v);
       }
       grid.push(row);
     }
 
     // Go through the grid randomly hooking up edges
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
         // Connect down
         if (y < height - 1) {
           if (Math.random() < probability) {
@@ -92,8 +92,8 @@ export class Graph {
     const boxInner = pxBox * boxBuffer;
     const boxInnerOffset = (pxBox - boxInner) / 2;
 
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
         grid[y][x].pos = {
           x: (x * pxBox + boxInnerOffset + Math.random() * boxInner) | 0,
           y: (y * pxBox + boxInnerOffset + Math.random() * boxInner) | 0
@@ -102,8 +102,8 @@ export class Graph {
     }
 
     // Finally, add everything in our grid to the vertices in this Graph
-    for (let y = 0; y < height; y++) {
-      for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y += 1) {
+      for (let x = 0; x < width; x += 1) {
         this.vertices.push(grid[y][x]);
       }
     }
@@ -115,16 +115,17 @@ export class Graph {
   dump() {
     let s;
 
-    for (let v of this.vertices) {
+    for (const v of this.vertices) {
       if (v.pos) {
-        s = v.value + ' (' + v.pos.x + ',' + v.pos.y + '):';
+        s = `v.value (${v.pos.x}, ${v.pos.y})`;
       } else {
-        s = v.value + ':';
+        s = `${v.value}:`;
       }
 
-      for (let e of v.edges) {
+      for (const e of v.edges) {
         // s += ` ${e.destination.value}`;
-        `${s} += ${e.value}`;
+        // `${s} += ${e.value}`;
+        s += e.value;
       }
       console.log(s);
     }
@@ -144,4 +145,3 @@ export class Graph {
     // !!! IMPLEMENT ME
   }
 }
-
