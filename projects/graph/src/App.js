@@ -1,7 +1,7 @@
 /* eslint no-restricted-syntax: off */
 /* eslint react/no-multi-comp: off */
 import React, { Component } from 'react';
-import { Graph } from './graph';
+import { Graph, Vertex, Edge } from './graph';
 import './App.css';
 
 // !!! IMPLEMENT ME
@@ -30,49 +30,42 @@ class GraphView extends Component {
    * Render the canvas
    */
   updateCanvas() {
-    let canvas = this.refs.canvas;
+    const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
-
     // Clear it
-    ctx.fillStyle = '#2953A0';
-    // ctx.fillStyle = 'white';
-    // starts top left corner
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight); 
-    console.log("in updateCanvas()", this.props.graph.vertices);
-
+    ctx.fillStyle = '#88C1F2';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    console.log("in updateCanvas()", this.props.graph.vertexes);
     // // !!! IMPLEMENT ME
     // // compute connected components
     // // draw edges
-    // // draw verts
-    // // draw vert values (labels)
     // }
-
-    const vertexes = this.props.graph.vertices;
+    const vertexes = this.props.graph.vertexes;
     const radius = 20;
-    for (const v of vertexes) {
+
+    for (const vert of vertexes) {
+      // vertex(s)
       ctx.beginPath();
-      ctx.arc(v.pos.x, v.pos.y, radius, 0, 2 * Math.PI);
+      ctx.arc(vert.pos.x, vert.pos.y, radius, 0, 2 * Math.PI);
       ctx.fillStyle = 'white';
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.fillStyle = 'black';
+      ctx.font = '10px Arial';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
-      ctx.fillText(v.value, v.pos.x, v.pos.y);
+      ctx.fillText(vert.value, vert.pos.x, vert.pos.y);
       ctx.stroke();
+      // edge(s)
+      for (const edge of vert.edges) {
+        // console.log(edge.destination.pos.x);
+        ctx.beginPath();
+        ctx.moveTo(vert.pos.x, vert.pos.y);
+        ctx.lineTo(edge.destination.pos.x, edge.destination.pos.y);
+        ctx.stroke();
+      }
     }
-    // for (const vertex of vertexes) {
-    //   ctx.beginPath();
-    //   ctx.arc(vertex.pos.x, vertex.pos.y, radius, 0, 2 * Math.PI);
-    //   ctx.fillStyle = 'black';
-    //   ctx.textAlign = 'center';
-    //   ctx.textBaseline = 'middle';
-    //   ctx.fillText(vertex.value, vertex.pos.x, vertex.pos.y);
-    //   ctx.stroke();
-    //   // connect edges to vertices
-    //   for (const v of vertexes) {
-    //     cxt.beginPath();
-    //     ctx.moveTo(v.pos.x, v.pos.y);
-    //     ctx.lineTo(v.edge.destination.pos.x / 2, v.edge.destination.pos.y);
-    //     ctx.stroke();
-    //   }
   }
   /**
    * Render

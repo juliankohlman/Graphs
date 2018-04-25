@@ -3,10 +3,9 @@
  * Edge
  */
 export class Edge {
-  // !!! IMPLEMENT ME
-  constructor(weight = 1, destination) {
-    this.weight = weight;
+  constructor(destination, weight = 1) {
     this.destination = destination;
+    this.weight = weight;
   }
 }
 
@@ -14,10 +13,7 @@ export class Edge {
  * Vertex
  */
 export class Vertex {
-  // !!! IMPLEMENT ME
-  // value property
-  // edges property
-  constructor(value = 'default vertex label', pos = { x: 50, y: 50 }) {
+  constructor(value = 'vertex', pos = { x: 50, y: 50 }) {
     this.value = value;
     this.edges = [];
     this.pos = pos;
@@ -29,20 +25,24 @@ export class Vertex {
  */
 export class Graph {
   constructor() {
-    this.vertices = [];
+    this.vertexes = [];
   }
 
   debugCreateTestData() {
     const testVertex1 = new Vertex('V-1', { x: 125, y: 125 });
     const testVertex2 = new Vertex('V-2', { x: 325, y: 325 });
+    const testVertex3 = new Vertex('V-3', { x: 155, y: 275 });
+
     const edge1 = new Edge(testVertex2);
-    testVertex1.edges.push(edge1);
     const edge2 = new Edge(testVertex1);
+    const edge3 = new Edge(testVertex2);
+
+    testVertex1.edges.push(edge1);
     testVertex2.edges.push(edge2);
+    testVertex3.edges.push(edge3);
 
-    this.vertices.push(testVertex1, testVertex2);
+    this.vertexes.push(testVertex1, testVertex2, testVertex3);
   }
-
   /**
    * Create a random graph
    */
@@ -56,32 +56,32 @@ export class Graph {
     let count = 0;
 
     // Build a grid of verts
-    const grid = [];
-    for (let y = 0; y < height; y += 1) {
-      const row = [];
-      for (let x = 0; x < width; x += 1) {
-        const v = new Vertex();
-        // v.value = 'v' + x + ',' + y;
-        v.value = `${v} + ${count += 1}`;
+    let grid = [];
+    for (let y = 0; y < height; y++) {
+      let row = [];
+      for (let x = 0; x < width; x++) {
+        let v = new Vertex();
+        //v.value = 'v' + x + ',' + y;
+        v.value = 'v' + count++;
         row.push(v);
       }
       grid.push(row);
     }
 
     // Go through the grid randomly hooking up edges
-    for (let y = 0; y < height; y += 1) {
-      for (let x = 0; x < width; x += 1) {
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
         // Connect down
         if (y < height - 1) {
           if (Math.random() < probability) {
-            connectVerts(grid[y][x], grid[y + 1][x]);
+            connectVerts(grid[y][x], grid[y+1][x]);
           }
         }
 
         // Connect right
         if (x < width - 1) {
           if (Math.random() < probability) {
-            connectVerts(grid[y][x], grid[y][x + 1]);
+            connectVerts(grid[y][x], grid[y][x+1]);
           }
         }
       }
@@ -92,19 +92,19 @@ export class Graph {
     const boxInner = pxBox * boxBuffer;
     const boxInnerOffset = (pxBox - boxInner) / 2;
 
-    for (let y = 0; y < height; y += 1) {
-      for (let x = 0; x < width; x += 1) {
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
         grid[y][x].pos = {
-          x: (x * pxBox + boxInnerOffset + Math.random() * boxInner) | 0,
-          y: (y * pxBox + boxInnerOffset + Math.random() * boxInner) | 0
+          'x': (x * pxBox + boxInnerOffset + Math.random() * boxInner) | 0,
+          'y': (y * pxBox + boxInnerOffset + Math.random() * boxInner) | 0
         };
       }
     }
 
-    // Finally, add everything in our grid to the vertices in this Graph
-    for (let y = 0; y < height; y += 1) {
-      for (let x = 0; x < width; x += 1) {
-        this.vertices.push(grid[y][x]);
+    // Finally, add everything in our grid to the vertexes in this Graph
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        this.vertexes.push(grid[y][x]);
       }
     }
   }
@@ -115,17 +115,15 @@ export class Graph {
   dump() {
     let s;
 
-    for (const v of this.vertices) {
+    for (let v of this.vertexes) {
       if (v.pos) {
-        s = `v.value (${v.pos.x}, ${v.pos.y})`;
+        s = v.value + ' (' + v.pos.x + ',' + v.pos.y + '):';
       } else {
-        s = `${v.value}:`;
+        s = v.value + ':';
       }
 
-      for (const e of v.edges) {
-        // s += ` ${e.destination.value}`;
-        // `${s} += ${e.value}`;
-        s += e.value;
+      for (let e of v.edges) {
+        s += ` ${e.destination.value}`;
       }
       console.log(s);
     }
