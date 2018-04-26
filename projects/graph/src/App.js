@@ -6,7 +6,11 @@ import './App.css';
 
 // !!! IMPLEMENT ME
 const canvasWidth = 750;
-const canvasHeight = 600;
+const canvasHeight = 750;
+const x = 3;
+const y = 3;
+const boxSize = 150;
+const existProb = 0.6;
 
 /**
  * GraphView
@@ -35,18 +39,21 @@ class GraphView extends Component {
     // Clear it
     ctx.fillStyle = '#5086F2';
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
-    console.log("in updateCanvas()", this.props.graph.vertexes);
     // compute connected components
     const vertexes = this.props.graph.vertexes;
     const radius = 20;
-
-    // edge(s) TODO optimize these 2 loops
+    
+    // let ascVerts = vertexes.sort((a,b) => {
+    //   return b.edges.length - a.edges.length
+    // });
+    // console.log(ascVerts);
+    // let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
     for (const v of vertexes) {
-      for (const edge of v.edges) {
+      for (const edge of v.edges) {    
         ctx.beginPath();
+        ctx.strokeStyle = v.color;
         ctx.moveTo(v.pos.x, v.pos.y);
         ctx.lineTo(edge.destination.pos.x, edge.destination.pos.y);
-        // ctx.strokeStyle = 'orange';
         ctx.stroke();
       }
     }
@@ -55,7 +62,7 @@ class GraphView extends Component {
       // vertex(s)
       ctx.beginPath();
       ctx.arc(vert.pos.x, vert.pos.y, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = 'white';
+      ctx.fillStyle = vert.color;
       ctx.fill();
       ctx.stroke();
 
@@ -70,9 +77,6 @@ class GraphView extends Component {
   /**
    * Render
    */
-  // TODO print a message on canvas on app start up
-  // message should prompt the user the click the button to 
-  // generate a random graph.
   render() {
     return <canvas ref="canvas" width={canvasWidth} height={canvasHeight}></canvas>;
   }
@@ -82,44 +86,36 @@ class GraphView extends Component {
  * App
  */
 class App extends Component {
-  state = {
-    graph: new Graph(),
-  };
-    // !!! IMPLEMENT ME
-    // use the graph randomize() method
-    // state.graph.randomize(3, 2, 150, 0.6);
-    // this.state.graph.debugCreateTestData();
-    // console.log('this object', this);
-    // this.state.graph.dump();
-  // }
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      graph: new Graph(),
+    };
+    this.state.graph.randomize(x, y, boxSize, existProb);
+
+    this.state.graph.getConnectedComponents();
+  }
+
   randGraph = () => {
     console.log('Random button clicked');
     const state = { graph: new Graph() };
-    state.graph.randomize(2, 3, 150, 0.6);
+    state.graph.randomize(x, y, boxSize, existProb);
+    state.graph.getConnectedComponents();
     this.setState(() => state);
   }
   
-  // viewBFS = () => {
-  //   console.log('BFS button clicked');
-  //   const state = { graph: new Graph() };
-  //   state.graph.randomize(2, 3, 150, 0.6);
-  //   this.setState(() => state); 
-  //   state.graph.bfs(state.graph.vertexes[0]);
-  // }
   // BFS --- CONNECTED COMPONENTS CALLS HERE
   render() {
     // TODO STYLE random generator button
-    return (
-      <div className="App">
-        <div>
-          <button className="Button" onClick={this.randGraph}>Generate Random Graph</button>
-        </div>
-        {/* <div>
-          <button className="Button" onClick={this.viewBFS}>BFS -- Colored Components</button>
-        </div> */}
+    return <div className="App">
         <GraphView graph={this.state.graph} />
-      </div>
-    );
+        <div>
+          <button className="Button" onClick={this.randGraph}>
+            Generate Random Graph
+          </button>
+        </div>
+      </div>;
   }
 }
 

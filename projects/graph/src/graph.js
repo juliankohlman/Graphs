@@ -13,10 +13,12 @@ export class Edge {
  * Vertex
  */
 export class Vertex {
-  constructor(value = 'vertex', pos = { x: 50, y: 50 }) {
+  constructor(value = 'vertex', pos = { x: 25, y: 25 }) {
     this.value = value;
     this.edges = [];
     this.pos = pos;
+    this.visited = false;
+    this.color = 'white';
   }
 }
 
@@ -72,7 +74,7 @@ export class Graph {
     }
 
     // Last pass, set the x and y coordinates for drawing
-    const boxBuffer = 0.8;
+    const boxBuffer = 0.6;
     const boxInner = pxBox * boxBuffer;
     const boxInnerOffset = (pxBox - boxInner) / 2;
 
@@ -116,29 +118,53 @@ export class Graph {
   /**
    * BFS
    */
-  bfs(s) {
-    // TODO: USE VISUALIZER
-      // WILL NEED A QUEUE,VISITED ARR T/F flags
-    /*
-      0. Pick a color
-      1. Add the first vertex in the array to the queue and add it to visited list
-      2. Visit the first item in the queue (mark with color)
-      3. -
-      4. Loop through the edge array in the first item in the queue
-        a. add each destination to queue if not visited
-        b. for each destination, add to found list
-      5. Dequeue the first item in queue
-        a. if queue is not empty, go to step 2
-    */
-  }
+  /*
+  0. Pick a color
+  1. Add the first vertex in the array to the queue and add it to visited list
+  2. Visit the first item in the queue (mark with color)
+  3. -
+  4. Loop through the edge array in the first item in the queue
+  a. add each destination to queue if not visited
+  b. for each destination, add to found list
+  5. Dequeue the first item in queue
+  a. if queue is not empty, go to step 2
+  */
+ getRandomColor = () => '#' + Math.floor(Math.random() * 16777215).toString(16);
 
+  bfs = (s) => {
+    console.log('calling bfs() at vert', s.value);
+    let color = this.getRandomColor();
+    let queue = [];
+    queue.push(s);
+    s.visited = true;
+
+    while (queue.length > 0) {
+      const vertex = queue[0];
+      vertex.color = color;
+
+      for (let edge of vertex.edges) {
+        if (!edge.destination.visited) {
+          queue.push(edge.destination);
+          edge.destination.visited = true;
+          console.log('found edge: ', edge.destination.value);
+        }
+      }
+      queue.shift();
+    } 
+  }
+ 
   /**
    * Get the connected components
    */
-  getConnectedComponents() {
+  getConnectedComponents = () => {
+    console.log('called connected components');
     /*
-    A. Loop through the list of vertexes and if a vertex that has not been found is found:
+    A. Loop through the list of vertexes
+       if a vertex that has not been found is found do bfs:
     bfs(with vertex found in Step A.)
     */
+    for (let v of this.vertexes) {
+      if (!v.visited) this.bfs(v);
+    }
   }
 }
