@@ -27,22 +27,6 @@ export class Graph {
   constructor() {
     this.vertexes = [];
   }
-
-  debugCreateTestData() {
-    const testVertex1 = new Vertex('V-1', { x: 125, y: 125 });
-    const testVertex2 = new Vertex('V-2', { x: 325, y: 325 });
-    const testVertex3 = new Vertex('V-3', { x: 155, y: 275 });
-
-    const edge1 = new Edge(testVertex2);
-    const edge2 = new Edge(testVertex3);
-    const edge3 = new Edge(testVertex1);
-
-    testVertex1.edges.push(edge1);
-    testVertex2.edges.push(edge2);
-    testVertex3.edges.push(edge3);
-
-    this.vertexes.push(testVertex1, testVertex2, testVertex3);
-  }
   /**
    * Create a random graph
    */
@@ -132,14 +116,29 @@ export class Graph {
   /**
    * BFS
    */
-  bfs(start) {
-    // !!! IMPLEMENT ME
+  bfs(s) {
+    // TODO: USE VISUALIZER
+      // WILL NEED A QUEUE,VISITED ARR T/F flags
+    /*
+      0. Pick a color
+      1. Add the first vertex in the array to the queue and add it to visited list
+      2. Visit the first item in the queue (mark with color)
+      3. -
+      4. Loop through the edge array in the first item in the queue
+        a. add each destination to queue if not visited
+        b. for each destination, add to found list
+      5. Dequeue the first item in queue
+        a. if queue is not empty, go to step 2
+    */
   }
 
   /**
    * Get the connected components
    */
   getConnectedComponents() {
-    // !!! IMPLEMENT ME
+    /*
+    A. Loop through the list of vertexes and if a vertex that has not been found is found:
+    bfs(with vertex found in Step A.)
+    */
   }
 }
