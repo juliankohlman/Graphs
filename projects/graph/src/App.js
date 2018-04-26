@@ -37,7 +37,8 @@ class GraphView extends Component {
     const canvas = this.refs.canvas;
     const ctx = canvas.getContext('2d');
     // Clear it
-    ctx.fillStyle = '#5086F2';
+    // ctx.fillStyle = '#5086F2';
+    ctx.fillStyle = '#' + Math.floor(Math.random() * 16777215).toString(16);
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     // compute connected components
     const vertexes = this.props.graph.vertexes;
@@ -54,6 +55,7 @@ class GraphView extends Component {
         ctx.strokeStyle = v.color;
         ctx.moveTo(v.pos.x, v.pos.y);
         ctx.lineTo(edge.destination.pos.x, edge.destination.pos.y);
+        // ctx.fillText(edge.destination.weight)
         ctx.stroke();
       }
     }
@@ -62,11 +64,12 @@ class GraphView extends Component {
       // vertex(s)
       ctx.beginPath();
       ctx.arc(vert.pos.x, vert.pos.y, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = vert.color;
+      ctx.fillStyle = '#2953A0';
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = 'black';
+      // vert.color === 'white' ? ctx.fillStyle = 'black' : ctx.fillStyle = 'white';
+      ctx.fillStyle = 'white';
       ctx.font = '12px Titillium Web';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -92,8 +95,8 @@ class App extends Component {
     this.state = {
       graph: new Graph(),
     };
-    this.state.graph.randomize(x, y, boxSize, existProb);
 
+    this.state.graph.randomize(x, y, boxSize, existProb);
     this.state.graph.getConnectedComponents();
   }
 
@@ -105,16 +108,14 @@ class App extends Component {
     this.setState(() => state);
   }
   
-  // BFS --- CONNECTED COMPONENTS CALLS HERE
   render() {
-    // TODO STYLE random generator button
     return <div className="App">
-        <GraphView graph={this.state.graph} />
         <div>
           <button className="Button" onClick={this.randGraph}>
-            Generate Random Graph
+            Generate Graph
           </button>
         </div>
+        <GraphView graph={this.state.graph} />
       </div>;
   }
 }

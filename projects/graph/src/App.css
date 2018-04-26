@@ -22,6 +22,16 @@
   font-size: large;
 }
 
+.Button {
+  background: #3B597D;
+  border-radius: 12px;
+  color: azure;
+  font-family: 'Titillium Web';
+  font-size: 12px;
+  margin: 10px;
+  padding: 10px;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

@@ -5,7 +5,7 @@
 export class Edge {
   constructor(destination, weight = 1) {
     this.destination = destination;
-    this.weight = weight;
+    this.weight = Math.floor((Math.random() * 10) + 1);
   }
 }
 
@@ -158,6 +158,8 @@ export class Graph {
    */
   getConnectedComponents = () => {
     console.log('called connected components');
+    console.log(this.vertexes[0]);
+    
     /*
     A. Loop through the list of vertexes
        if a vertex that has not been found is found do bfs:
