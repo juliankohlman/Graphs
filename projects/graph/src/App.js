@@ -50,13 +50,21 @@ class GraphView extends Component {
     // console.log(ascVerts);
     // let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
     for (const v of vertexes) {
-      for (const edge of v.edges) {    
+      for (const edge of v.edges) {
+        const xCenter = (v.pos.x + edge.destination.pos.x) / 2
+        const yCenter = (v.pos.y + edge.destination.pos.y) / 2;
+        // console.log(xCenter); 
         ctx.beginPath();
         ctx.strokeStyle = v.color;
         ctx.moveTo(v.pos.x, v.pos.y);
         ctx.lineTo(edge.destination.pos.x, edge.destination.pos.y);
-        // ctx.fillText(edge.destination.weight)
         ctx.stroke();
+        
+        // TODO fix weights being drawn multiple times
+        ctx.fillStyle = 'black';
+        ctx.font = '22px Titillium Web';
+        console.log(`edge ${edge}:`, edge.weight);
+        ctx.fillText(`Weight: ${edge.weight}`, xCenter, yCenter, canvasHeight);
       }
     }
 

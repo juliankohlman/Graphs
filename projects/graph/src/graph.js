@@ -3,9 +3,9 @@
  * Edge
  */
 export class Edge {
-  constructor(destination, weight = 1) {
+  constructor(destination) {
     this.destination = destination;
-    this.weight = Math.floor((Math.random() * 10) + 1);
+    this.weight = Math.floor((Math.random() * Math.floor(10)));
   }
 }
 
